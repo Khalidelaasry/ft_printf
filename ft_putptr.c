@@ -1,32 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khelaasr <khelaasr@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/24 14:07:59 by khelaasr          #+#    #+#             */
+/*   Updated: 2025/11/24 16:20:39 by khelaasr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static void print_ptr(uintptr_t address)
+static int	ft_puthex_ptr(uintptr_t n)
 {
-    char *base = "0123456789abcdef";
+	int		count;
+	char	*base;
 
-    if (address >= 16)
-        print_ptr(address / 16);
-    write(1, &base[address % 16], 1);
+	base = "0123456789abcdef";
+	count = 0;
+	if (n >= 16)
+		count += ft_puthex_ptr(n / 16);
+	count += ft_putchar(base[n % 16]);
+	return (count);
 }
 
-int ft_putptr(uintptr_t address)
+int	ft_putptr(void *ptr)
 {
-    int len = 2;
+	int	count;
 
-    write(1, "0x", 2);
-
-    if (address == 0)
-    {
-        write(1, "0", 1);
-        return (3);
-    }
-
-    print_ptr(address);
-
-    while (address)
-    {
-        len++;
-        address /= 16;
-    }
-    return (len);
+	count = 0;
+	if (ptr == NULL)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	count += write(1, "0x", 2);
+	count += ft_puthex_ptr((uintptr_t)ptr);
+	return (count);
 }

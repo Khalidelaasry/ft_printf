@@ -1,29 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khelaasr <khelaasr@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/23 10:50:25 by khelaasr          #+#    #+#             */
+/*   Updated: 2025/11/26 14:03:42 by khelaasr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#define FT_PRINTF_H
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdint.h>   // <-- THIS IS REQUIRED FOR uintptr_t
+#include <stdarg.h>
+#include <stdint.h>
+#include <unistd.h>
 
-int     ft_printf(const char *text, ...);
-int     ft_conversion(va_list args, const char specifier);
+int ft_printf(const char *format, ...);
 
-int     ft_putchar(int character);
-int     ft_putstr(char *string);
-int     ft_putnbr(int number);
-int     ft_putunsigned(unsigned int value);
-int     ft_puthex(unsigned int value, const char specifier);
-int     ft_putptr(uintptr_t address);
+int ft_putchar(int c);
+int ft_putstr(char *s);
+int ft_putnbr(int n);
+int ft_putunsigned(unsigned int n);
+int ft_puthex(unsigned int n, char spec);
+int ft_putptr(void *ptr);
 
-
-int     ft_int_length(int number);
-int     ft_unsigned_length(unsigned int value);
-int     ft_hex_length(unsigned int value);
-int     ft_pointer_length(uintptr_t address);
-
-char    *ft_fill_string(char *buffer, unsigned int number, int length);
-char    *ft_itoa(int number);
-char    *ft_uitoa(unsigned int value);
+int ft_conversion(va_list args, const char specifier);
 
 #endif

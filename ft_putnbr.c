@@ -1,34 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khelaasr <khelaasr@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/24 13:49:58 by khelaasr          #+#    #+#             */
+/*   Updated: 2025/11/24 16:13:56 by khelaasr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static void print_number(long num)
+int	ft_putnbr(int n)
 {
-    char digit;
+	long	num;
+	int		count;
 
-    if (num >= 10)
-        print_number(num / 10);
-    digit = (num % 10) + '0';
-    write(1, &digit, 1);
-}
-
-int ft_putnbr(int number)
-{
-    long num = number;
-    int length = 0;
-
-    if (num < 0)
-    {
-        write(1, "-", 1);
-        num = -num;
-        length++;
-    }
-    print_number(num);
-
-    while (number)
-    {
-        length++;
-        number /= 10;
-    }
-    if (num == 0)
-        return (1);
-    return (length);
+	num = n;
+	count = 0;
+	if (num < 0)
+	{
+		count += write(1, "-", 1);
+		num = -num;
+	}
+	if (num >= 10)
+		count += ft_putnbr(num / 10);
+	count += ft_putchar((num % 10) + '0');
+	return (count);
 }

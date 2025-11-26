@@ -1,33 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khelaasr <khelaasr@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/24 14:08:37 by khelaasr          #+#    #+#             */
+/*   Updated: 2025/11/26 11:49:48 by khelaasr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static void print_hex(unsigned int value, const char specifier)
+int	ft_puthex(unsigned int n, char spec)
 {
-    char *base;
+	int		count;
+	char	*base;
 
-    if (specifier == 'x')
-        base = "0123456789abcdef";
-    else
-        base = "0123456789ABCDEF";
-
-    if (value >= 16)
-        print_hex(value / 16, specifier);
-    write(1, &base[value % 16], 1);
-}
-
-int ft_puthex(unsigned int value, const char specifier)
-{
-    int len = 0;
-    unsigned int temp = value;
-
-    print_hex(value, specifier);
-
-    if (value == 0)
-        return (1);
-
-    while (temp)
-    {
-        len++;
-        temp /= 16;
-    }
-    return (len);
+	count = 0;
+	if (spec == 'x')
+		base = "0123456789abcdef";
+	else
+		base = "0123456789ABCDEF";
+	if (n >= 16)
+		count += ft_puthex(n / 16, spec);
+	count += ft_putchar(base[n % 16]);
+	return (count);
 }
